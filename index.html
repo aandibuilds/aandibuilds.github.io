@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>A&I Builds — Ahmad & Isis</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #f9f8f6;
+      --bg2: #f2f1ee;
+      --white: #ffffff;
+      --border: #e4e2dd;
+      --border-dark: #ccc9c2;
+      --text: #1a1916;
+      --text-mid: #5a5750;
+      --text-muted: #9b9790;
+      --accent-a: #c97b3a;
+      --accent-i: #3a7bc9;
+      --accent-a-light: #fdf3e9;
+      --accent-i-light: #e9f3fd;
+      --sans: 'DM Sans', sans-serif;
+      --mono: 'DM Mono', monospace;
+      --radius: 10px;
+      --shadow: 0 1px 3px rgba(0,0,0,0.06), 0 4px 16px rgba(0,0,0,0.04);
+      --shadow-hover: 0 2px 8px rgba(0,0,0,0.08), 0 12px 32px rgba(0,0,0,0.07);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--sans);
+      font-size: 16px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      background: rgba(249,248,246,0.88);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-inner {
+      max-width: 1160px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .nav-logo {
+      font-family: var(--mono);
+      font-size: 0.85rem;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      color: var(--text);
+      text-decoration: none;
+    }
+    .logo-a { color: var(--accent-a); }
+    .logo-amp { color: var(--text-muted); }
+    .logo-i { color: var(--accent-i); }
+
+    .nav-links { display: flex; align-items: center; gap: 0.25rem; list-style: none; }
+    .nav-links a {
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--text-mid);
+      text-decoration: none;
+      padding: 0.4rem 0.85rem;
+      border-radius: 6px;
+      transition: background 0.15s, color 0.15s;
+    }
+    .nav-links a:hover { background: var(--bg2); color: var(--text); }
+    .nav-cta {
+      background: var(--text) !important;
+      color: var(--white) !important;
+      font-size: 0.82rem !important;
+      display: flex !important;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .nav-cta:hover { background: #333 !important; }
+
+    /* HERO */
+    .hero {
+      max-width: 1160px;
+      margin: 0 auto;
+      padding: 140px 2rem 80px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+    .hero-left { animation: fadeUp 0.7s ease both; }
+
+    .hero-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 99px;
+      padding: 0.3rem 0.9rem;
+      font-size: 0.78rem;
+      font-weight: 500;
+      color: var(--text-mid);
+      margin-bottom: 1.75rem;
+      box-shadow: var(--shadow);
+    }
+    .chip-dot {
+      width: 6px; height: 6px;
+      background: #4caf79;
+      border-radius: 50%;
+      box-shadow: 0 0 0 3px rgba(76,175,121,0.2);
+    }
+
+    .hero-title {
+      font-size: clamp(2.8rem, 5vw, 4.2rem);
+      font-weight: 300;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+      margin-bottom: 1.5rem;
+    }
+    .hero-title strong { font-weight: 600; }
+    .ht-a { color: var(--accent-a); }
+    .ht-i { color: var(--accent-i); }
+
+    .hero-desc {
+      font-size: 1.05rem;
+      color: var(--text-mid);
+      line-height: 1.75;
+      margin-bottom: 2.5rem;
+      max-width: 440px;
+      font-weight: 300;
+    }
+
+    .hero-actions { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.65rem 1.4rem;
+      border-radius: 8px;
+      font-size: 0.875rem;
+      font-weight: 500;
+      text-decoration: none;
+      transition: all 0.18s ease;
+      font-family: var(--sans);
+    }
+    .btn-primary { background: var(--text); color: var(--white); }
+    .btn-primary:hover { background: #2a2926; transform: translateY(-1px); box-shadow: 0 4px 12px rgba(0,0,0,0.18); }
+    .btn-outline { background: var(--white); color: var(--text); border: 1px solid var(--border-dark); box-shadow: var(--shadow); }
+    .btn-outline:hover { border-color: var(--text); transform: translateY(-1px); }
+
+    .hero-right {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      animation: fadeUp 0.7s ease 0.15s both;
+    }
+    .stat-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      box-shadow: var(--shadow);
+    }
+    .stat-card.tall { grid-row: span 2; display: flex; flex-direction: column; justify-content: space-between; }
+    .stat-num { font-size: 2rem; font-weight: 600; letter-spacing: -0.04em; line-height: 1; margin-bottom: 0.3rem; }
+    .stat-num.col-a { color: var(--accent-a); }
+    .stat-num.col-i { color: var(--accent-i); }
+    .stat-label { font-size: 0.78rem; color: var(--text-muted); }
+    .stat-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+    .stag { font-size: 0.7rem; padding: 0.2rem 0.55rem; border-radius: 4px; font-weight: 500; background: var(--bg2); color: var(--text-mid); }
+    .stag-a { background: var(--accent-a-light); color: var(--accent-a); }
+    .stag-i { background: var(--accent-i-light); color: var(--accent-i); }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(18px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* LAYOUT */
+    .section-wrap { max-width: 1160px; margin: 0 auto; padding: 5rem 2rem; }
+    .divider { max-width: 1160px; margin: 0 auto; padding: 0 2rem; }
+    .divider hr { border: none; border-top: 1px solid var(--border); }
+
+    .section-label { display: flex; align-items: center; gap: 1rem; margin-bottom: 2.5rem; }
+    .label-tag {
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 0.25rem 0.7rem;
+      border-radius: 4px;
+      font-weight: 500;
+      white-space: nowrap;
+    }
+    .lt-joint { background: var(--bg2); color: var(--text-mid); border: 1px solid var(--border-dark); }
+    .lt-a { background: var(--accent-a-light); color: var(--accent-a); }
+    .lt-i { background: var(--accent-i-light); color: var(--accent-i); }
+    .section-title { font-size: clamp(1.6rem, 3vw, 2.2rem); font-weight: 600; letter-spacing: -0.025em; }
+    .section-rule { flex: 1; height: 1px; background: var(--border); }
+
+    /* PROJECT CARDS */
+    .project-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.25rem; }
+
+    .project-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.75rem;
+      display: flex;
+      flex-direction: column;
+      box-shadow: var(--shadow);
+      text-decoration: none;
+      color: inherit;
+      transition: box-shadow 0.2s, transform 0.2s, border-color 0.2s;
+    }
+    .project-card:hover { box-shadow: var(--shadow-hover); transform: translateY(-3px); }
+    .card-joint:hover { border-color: var(--border-dark); }
+    .card-a:hover { border-color: rgba(201,123,58,0.4); }
+    .card-i:hover { border-color: rgba(58,123,201,0.4); }
+
+    .card-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1.1rem; }
+    .card-icon {
+      width: 40px; height: 40px;
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.2rem;
+      border: 1px solid var(--border);
+      background: var(--bg2);
+    }
+    .card-badge {
+      font-family: var(--mono);
+      font-size: 0.62rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.2rem 0.55rem;
+      border-radius: 4px;
+      font-weight: 500;
+    }
+    .cb-joint { background: var(--bg2); color: var(--text-mid); }
+    .cb-a { background: var(--accent-a-light); color: var(--accent-a); }
+    .cb-i { background: var(--accent-i-light); color: var(--accent-i); }
+
+    .card-title { font-size: 1rem; font-weight: 600; margin-bottom: 0.45rem; letter-spacing: -0.01em; }
+    .card-desc { font-size: 0.875rem; color: var(--text-mid); line-height: 1.65; margin-bottom: 1.4rem; flex: 1; font-weight: 300; }
+    .card-footer { display: flex; align-items: center; justify-content: space-between; padding-top: 1rem; border-top: 1px solid var(--border); }
+    .tech-stack { display: flex; gap: 0.4rem; flex-wrap: wrap; }
+    .tech-tag {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      padding: 0.15rem 0.5rem;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      color: var(--text-muted);
+    }
+    .card-arrow { font-size: 0.8rem; color: var(--text-muted); transition: color 0.15s, transform 0.15s; }
+    .project-card:hover .card-arrow { color: var(--text); transform: translate(2px,-2px); }
+
+    /* SOLO */
+    .solo-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; }
+
+    .profile-head {
+      display: flex; align-items: center; gap: 1rem;
+      padding: 1.5rem;
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      margin-bottom: 1rem;
+      box-shadow: var(--shadow);
+    }
+    .profile-avatar {
+      width: 48px; height: 48px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.2rem; font-weight: 600;
+      flex-shrink: 0;
+      font-family: var(--mono);
+    }
+    .av-a { background: var(--accent-a-light); color: var(--accent-a); border: 2px solid rgba(201,123,58,0.3); }
+    .av-i { background: var(--accent-i-light); color: var(--accent-i); border: 2px solid rgba(58,123,201,0.3); }
+    .profile-name { font-size: 1.05rem; font-weight: 600; margin-bottom: 0.1rem; }
+    .profile-role { font-size: 0.78rem; color: var(--text-muted); }
+
+    .mini-projects { display: flex; flex-direction: column; gap: 0.75rem; }
+    .mini-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.2rem 1.4rem;
+      text-decoration: none; color: inherit;
+      display: flex; align-items: flex-start; gap: 0.9rem;
+      box-shadow: var(--shadow);
+      transition: box-shadow 0.2s, transform 0.2s, border-color 0.2s;
+    }
+    .mini-card:hover { box-shadow: var(--shadow-hover); transform: translateY(-2px); }
+    .mini-a:hover { border-color: rgba(201,123,58,0.35); }
+    .mini-i:hover { border-color: rgba(58,123,201,0.35); }
+    .mini-dot { width: 8px; height: 8px; border-radius: 50%; margin-top: 0.45rem; flex-shrink: 0; }
+    .dot-a { background: var(--accent-a); }
+    .dot-i { background: var(--accent-i); }
+    .mini-title { font-size: 0.9rem; font-weight: 600; margin-bottom: 0.2rem; }
+    .mini-desc { font-size: 0.82rem; color: var(--text-mid); line-height: 1.55; font-weight: 300; }
+    .mini-arrow { margin-left: auto; font-size: 0.75rem; color: var(--text-muted); flex-shrink: 0; padding-top: 0.25rem; transition: transform 0.15s, color 0.15s; }
+    .mini-card:hover .mini-arrow { transform: translate(2px,-2px); color: var(--text); }
+
+    /* CONTACT */
+    .contact-wrap {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 3rem;
+      box-shadow: var(--shadow);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: start;
+    }
+    .contact-title { font-size: 1.6rem; font-weight: 600; letter-spacing: -0.02em; margin-bottom: 0.75rem; }
+    .contact-desc { font-size: 0.925rem; color: var(--text-mid); line-height: 1.7; font-weight: 300; }
+    .contact-people { display: flex; flex-direction: column; gap: 1.25rem; }
+    .person-card { border: 1px solid var(--border); border-radius: var(--radius); padding: 1.4rem; background: var(--bg); }
+    .person-name { font-size: 0.95rem; font-weight: 600; margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.5rem; }
+    .person-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+    .pd-a { background: var(--accent-a); }
+    .pd-i { background: var(--accent-i); }
+    .contact-links { display: flex; flex-direction: column; gap: 0.4rem; }
+    .contact-link {
+      display: flex; align-items: center; gap: 0.6rem;
+      font-size: 0.83rem; color: var(--text-mid);
+      text-decoration: none;
+      padding: 0.4rem 0.55rem;
+      border-radius: 6px;
+      transition: background 0.15s, color 0.15s;
+    }
+    .contact-link:hover { background: var(--white); color: var(--text); }
+    .contact-link svg { flex-shrink: 0; opacity: 0.55; }
+    .contact-link:hover svg { opacity: 1; }
+
+    /* FOOTER */
+    .footer { border-top: 1px solid var(--border); margin-top: 2rem; }
+    .footer-inner {
+      max-width: 1160px; margin: 0 auto;
+      padding: 2rem;
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 1rem;
+    }
+    .footer-logo { font-family: var(--mono); font-size: 0.82rem; color: var(--text-mid); text-decoration: none; }
+    .footer-links { display: flex; gap: 1.5rem; list-style: none; }
+    .footer-links a { font-size: 0.82rem; color: var(--text-muted); text-decoration: none; transition: color 0.15s; }
+    .footer-links a:hover { color: var(--text); }
+    .footer-copy { font-size: 0.78rem; color: var(--text-muted); }
+
+    /* RESPONSIVE */
+    @media (max-width: 900px) {
+      .hero { grid-template-columns: 1fr; padding-top: 100px; }
+      .hero-right { display: none; }
+      .solo-grid { grid-template-columns: 1fr; }
+      .contact-wrap { grid-template-columns: 1fr; gap: 2rem; }
+    }
+    @media (max-width: 600px) {
+      .nav-links li:not(:last-child) { display: none; }
+      .section-wrap { padding: 3.5rem 1.5rem; }
+      .contact-wrap { padding: 2rem 1.5rem; }
+      .project-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="#" class="nav-logo">
+      <span class="logo-a">A</span><span class="logo-amp">&</span><span class="logo-i">I</span>&nbsp;Builds
+    </a>
+    <ul class="nav-links">
+      <li><a href="#joint">Joint Work</a></li>
+      <li><a href="#solo">Individual</a></li>
+      <li><a href="#contact">Contact</a></li>
+      <li><a href="https://github.com/AandIbuilds" target="_blank" class="nav-cta">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
+        GitHub
+      </a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-left">
+    <div class="hero-chip">
+      <span class="chip-dot"></span>
+      Open to collaboration
+    </div>
+    <h1 class="hero-title">
+      Building things<br/>
+      <strong>with <span class="ht-a">Ahmad</span><br/>
+      &amp;&nbsp;<span class="ht-i">Isis</span></strong>
+    </h1>
+    <p class="hero-desc">
+      A creative duo crafting web apps, thoughtful designs, and data-driven experiences.
+      Two perspectives. One shared passion for building.
+    </p>
+    <div class="hero-actions">
+      <a href="#joint" class="btn btn-primary">View Projects ↓</a>
+      <a href="https://github.com/AandIbuilds" target="_blank" class="btn btn-outline">GitHub ↗</a>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="stat-card tall">
+      <div>
+        <div class="stat-num col-a">Web</div>
+        <div class="stat-label">App Development</div>
+      </div>
+      <div class="stat-tags">
+        <span class="stag stag-a">Frontend</span>
+        <span class="stag stag-a">Backend</span>
+        <span class="stag">APIs</span>
+        <span class="stag">UI/UX</span>
+      </div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num col-i" style="font-size:1.5rem;">Design</div>
+      <div class="stat-label">Creative &amp; Visual</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num" style="font-size:1.3rem;">AI / ML</div>
+      <div class="stat-label">Data &amp; Intelligence</div>
+    </div>
+    <div class="stat-card">
+      <div style="font-size:1.5rem;margin-bottom:0.4rem;">🤝</div>
+      <div class="stat-label">Joint &amp; Solo Projects</div>
+    </div>
+  </div>
+</div>
+
+<!-- JOINT PROJECTS -->
+<div class="divider"><hr/></div>
+<div class="section-wrap" id="joint">
+  <div class="section-label">
+    <span class="label-tag lt-joint">01 — Collaboration</span>
+    <h2 class="section-title">Joint Projects</h2>
+    <div class="section-rule"></div>
+  </div>
+
+  <div class="project-grid">
+
+    <a class="project-card card-joint" href="https://github.com/AandIbuilds" target="_blank">
+      <div class="card-header">
+        <div class="card-icon">🔗</div>
+        <span class="card-badge cb-joint">Featured</span>
+      </div>
+      <h3 class="card-title">Project Name Here</h3>
+      <p class="card-desc">Replace this with your real project description. What does it do, what problem does it solve, and what makes it worth checking out?</p>
+      <div class="card-footer">
+        <div class="tech-stack">
+          <span class="tech-tag">React</span>
+          <span class="tech-tag">Node.js</span>
+          <span class="tech-tag">Postgres</span>
+        </div>
+        <span class="card-arrow">↗</span>
+      </div>
+    </a>
+
+    <a class="project-card card-joint" href="https://github.com/AandIbuilds" target="_blank">
+      <div class="card-header">
+        <div class="card-icon">🎨</div>
+        <span class="card-badge cb-joint">Design + Dev</span>
+      </div>
+      <h3 class="card-title">Project Name Here</h3>
+      <p class="card-desc">A project where design and development skills came together. Replace with a real description and update the tech tags to match.</p>
+      <div class="card-footer">
+        <div class="tech-stack">
+          <span class="tech-tag">Figma</span>
+          <span class="tech-tag">Next.js</span>
+          <span class="tech-tag">Tailwind</span>
+        </div>
+        <span class="card-arrow">↗</span>
+      </div>
+    </a>
+
+    <a class="project-card card-joint" href="https://github.com/AandIbuilds" target="_blank">
+      <div class="card-header">
+        <div class="card-icon">🤖</div>
+        <span class="card-badge cb-joint">AI / ML</span>
+      </div>
+      <h3 class="card-title">Project Name Here</h3>
+      <p class="card-desc">A data or AI-driven project built together. Describe the model, dataset, or insight this is built around and update the tech tags.</p>
+      <div class="card-footer">
+        <div class="tech-stack">
+          <span class="tech-tag">Python</span>
+          <span class="tech-tag">scikit-learn</span>
+          <span class="tech-tag">FastAPI</span>
+        </div>
+        <span class="card-arrow">↗</span>
+      </div>
+    </a>
+
+  </div>
+</div>
+
+<!-- SOLO WORK -->
+<div class="divider"><hr/></div>
+<div class="section-wrap" id="solo">
+  <div class="section-label">
+    <span class="label-tag lt-a">02 — Individual</span>
+    <h2 class="section-title">Solo Work</h2>
+    <div class="section-rule"></div>
+  </div>
+
+  <div class="solo-grid">
+
+    <!-- AHMAD -->
+    <div id="ahmad">
+      <div class="profile-head">
+        <div class="profile-avatar av-a">A</div>
+        <div>
+          <div class="profile-name">Ahmad</div>
+          <div class="profile-role">Developer · Designer · Builder</div>
+        </div>
+      </div>
+      <div class="mini-projects">
+        <a class="mini-card mini-a" href="https://github.com/AandIbuilds" target="_blank">
+          <div class="mini-dot dot-a"></div>
+          <div>
+            <div class="mini-title">Project Title</div>
+            <div class="mini-desc">Short description of what this project does and the tech or approach behind it.</div>
+          </div>
+          <span class="mini-arrow">↗</span>
+        </a>
+        <a class="mini-card mini-a" href="https://github.com/AandIbuilds" target="_blank">
+          <div class="mini-dot dot-a"></div>
+          <div>
+            <div class="mini-title">Project Title</div>
+            <div class="mini-desc">Another solo project — describe the problem it solves or the skill it demonstrates.</div>
+          </div>
+          <span class="mini-arrow">↗</span>
+        </a>
+        <a class="mini-card mini-a" href="https://github.com/AandIbuilds" target="_blank">
+          <div class="mini-dot dot-a"></div>
+          <div>
+            <div class="mini-title">Project Title</div>
+            <div class="mini-desc">Add as many cards as needed — duplicate this block and update the link and text.</div>
+          </div>
+          <span class="mini-arrow">↗</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- ISIS -->
+    <div id="isis">
+      <div class="profile-head">
+        <div class="profile-avatar av-i">I</div>
+        <div>
+          <div class="profile-name">Isis</div>
+          <div class="profile-role">Developer · Creator · Thinker</div>
+        </div>
+      </div>
+      <div class="mini-projects">
+        <a class="mini-card mini-i" href="https://github.com/AandIbuilds" target="_blank">
+          <div class="mini-dot dot-i"></div>
+          <div>
+            <div class="mini-title">Project Title</div>
+            <div class="mini-desc">Short description of what this project does and the tech or approach behind it.</div>
+          </div>
+          <span class="mini-arrow">↗</span>
+        </a>
+        <a class="mini-card mini-i" href="https://github.com/AandIbuilds" target="_blank">
+          <div class="mini-dot dot-i"></div>
+          <div>
+            <div class="mini-title">Project Title</div>
+            <div class="mini-desc">Another solo project — describe the problem it solves or the skill it demonstrates.</div>
+          </div>
+          <span class="mini-arrow">↗</span>
+        </a>
+        <a class="mini-card mini-i" href="https://github.com/AandIbuilds" target="_blank">
+          <div class="mini-dot dot-i"></div>
+          <div>
+            <div class="mini-title">Project Title</div>
+            <div class="mini-desc">Add as many cards as needed — duplicate this block and update the link and text.</div>
+          </div>
+          <span class="mini-arrow">↗</span>
+        </a>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- CONTACT -->
+<div class="divider"><hr/></div>
+<div class="section-wrap" id="contact">
+  <div class="section-label">
+    <span class="label-tag lt-i">03 — Connect</span>
+    <h2 class="section-title">Get in Touch</h2>
+    <div class="section-rule"></div>
+  </div>
+
+  <div class="contact-wrap">
+    <div>
+      <h3 class="contact-title">Let's build something together.</h3>
+      <p class="contact-desc">Whether you want to collaborate on a project, have an idea to explore, or just want to connect — Ahmad and Isis are always open to new conversations. Reach out through any of the links below.</p>
+    </div>
+
+    <div class="contact-people">
+      <!-- Ahmad -->
+      <div class="person-card">
+        <div class="person-name">
+          <span class="person-dot pd-a"></span> Ahmad
+        </div>
+        <div class="contact-links">
+          <a href="https://github.com/AandIbuilds" target="_blank" class="contact-link">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
+            github.com/ahmad — update this link
+          </a>
+          <a href="https://linkedin.com" target="_blank" class="contact-link">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+            linkedin.com/in/ahmad — update this link
+          </a>
+          <a href="mailto:ahmad@email.com" class="contact-link">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+            ahmad@email.com — update this
+          </a>
+        </div>
+      </div>
+
+      <!-- Isis -->
+      <div class="person-card">
+        <div class="person-name">
+          <span class="person-dot pd-i"></span> Isis
+        </div>
+        <div class="contact-links">
+          <a href="https://github.com/AandIbuilds" target="_blank" class="contact-link">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
+            github.com/isis — update this link
+          </a>
+          <a href="https://linkedin.com" target="_blank" class="contact-link">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+            linkedin.com/in/isis — update this link
+          </a>
+          <a href="mailto:isis@email.com" class="contact-link">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+            isis@email.com — update this
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-inner">
+    <a href="#" class="footer-logo">
+      <span style="color:var(--accent-a)">A</span><span style="color:var(--text-muted)">&</span><span style="color:var(--accent-i)">I</span> Builds
+    </a>
+    <ul class="footer-links">
+      <li><a href="#joint">Joint Work</a></li>
+      <li><a href="#ahmad">Ahmad</a></li>
+      <li><a href="#isis">Isis</a></li>
+      <li><a href="https://github.com/AandIbuilds" target="_blank">GitHub ↗</a></li>
+    </ul>
+    <p class="footer-copy">© 2025 A&I Builds</p>
+  </div>
+</footer>
+
+</body>
+</html>
